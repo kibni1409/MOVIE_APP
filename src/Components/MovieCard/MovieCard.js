@@ -2,36 +2,31 @@ import React from 'react'
 
 import Style from './MovieCard.module.css'
 
-const MovieCard = () => {
+const MovieCard = ({ el }) => {
+  let img = null //= 'https://imgholder.ru/183/281/adb9ca&text=Image+loading&font=bitter&fz=24'
+  if (el.picture) {
+    img = 'https://image.tmdb.org/t/p/w185' + el.picture
+  }
+  // let ElementsGenres = null
+  // if (isLoading === false) {
+  //   ElementsGenres = el.genres.map((g) => (
+  //     // eslint-disable-next-line react/jsx-key
+  //     <li key={el.id} className={Style.MovieCard__genre}>
+  //       {g}
+  //     </li>
+  //   ))
+  // }
   return (
     <div className={Style.MovieCard}>
-      <div className={Style.MovieCard__picture}> Pictures </div>
+      <img className={Style.MovieCard__picture} src={img} alt={el.picture}></img>
       <div className={Style.MovieCard__infoBlock}>
         <div className={Style.MovieCard__header}>
-          <p className={Style.MovieCard__name}>Name</p>
-          <div className={Style.MovieCard__rank}>6,6</div>
+          <p className={Style.MovieCard__name}>{el.name}</p>
+          <div className={Style.MovieCard__rank}>{el.rank}</div>
         </div>
-        <div className={Style.MovieCard__data}>March 5, 2020</div>
-        <ul className={Style.MovieCard__genreList}>
-          <li className={Style.MovieCard__genre}>Action</li>
-          <li className={Style.MovieCard__genre}>Drama</li>
-        </ul>
-        <p className={Style.MovieCard__description}>
-          A former basketball all-star, who has lost his wife and family foundation in a struggle with addiction
-          attempts to regain his soul and salvation by becoming the coach of a disparate ethnically mixed high...
-        </p>
-        <ul className={Style.MovieCard__starList}>
-          <li className={Style.MovieCard__star}>*</li>
-          <li className={Style.MovieCard__star}>*</li>
-          <li className={Style.MovieCard__star}>*</li>
-          <li className={Style.MovieCard__star}>*</li>
-          <li className={Style.MovieCard__star}>*</li>
-          <li className={Style.MovieCard__star}>*</li>
-          <li className={Style.MovieCard__star}>*</li>
-          <li className={Style.MovieCard__star}>*</li>
-          <li className={Style.MovieCard__star}>*</li>
-          <li className={Style.MovieCard__star}>*</li>
-        </ul>
+        <div className={Style.MovieCard__data}>{el.data}</div>
+        {/*<ul className={Style.MovieCard__genreList}>{ElementsGenres}</ul>*/}
+        <p className={Style.MovieCard__description}>{el.description}</p>
       </div>
     </div>
   )

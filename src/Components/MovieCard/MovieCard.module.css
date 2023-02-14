@@ -11,6 +11,7 @@
     width: 183px;
     height: 100%;
     border: 2px solid blue;
+    object-fit: cover;
 }
 
 .MovieCard__infoBlock{
@@ -70,8 +71,10 @@
     border: 1px solid seagreen;
     margin: 0;
     font-size: 12px;
-    line-height: 22px;
+    /*line-height: 22px;*/
     text-align: start;
+    max-height: 130px;
+    overflow:hidden;
 }
 
 .MovieCard__starList{
