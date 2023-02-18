@@ -1,7 +1,7 @@
 import './App.css'
 import React from 'react'
 
-import Body from './Components/Body/Body'
+import BodyAPI from './Components/Body/BodyAPI'
 
 export default class App extends React.Component {
   constructor(props) {
@@ -48,8 +48,6 @@ export default class App extends React.Component {
   }
 
   setGenres(listGenres) {
-    // eslint-disable-next-line no-debugger
-    debugger
     this.setState(() => {
       let res = listGenres.map((el) => {
         return {
@@ -57,7 +55,6 @@ export default class App extends React.Component {
           name: el.name,
         }
       })
-      console.log(res)
       return {
         Genres: res,
       }
@@ -74,8 +71,9 @@ export default class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <Body
+        <BodyAPI
           Movies={this.state.Movies}
+          Genres={this.state.Genres}
           setMovie={this.setMovie}
           setGenres={this.setGenres}
           isLoading={this.state.isLoading}

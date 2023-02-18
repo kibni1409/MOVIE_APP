@@ -1,23 +1,21 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import MovieCard from '../MovieCard/MovieCard'
-import { MovieAPI } from '../../API/MovieAPI'
+import Filter from '../Filter/Filter'
 
 import Style from './Body.module.css'
+import PaginationJS from './../Pagination/Pagination'
 
 const Body = (props) => {
-  const API = async () => {
-    props.onLoading(true)
-    const resMovie = await MovieAPI.Popular()
-    //const resGenres = await MovieAPI.Genres()
-    props.setMovie(resMovie.results)
-    //props.setGenres(resGenres.results)
-    props.onLoading(false)
-  }
-  useEffect(() => {
-    API().then()
-  }, [])
-  let ElementsMovie = props.Movies.map((el) => <MovieCard key={el.id} el={el} isLoading={props.isLoading} />)
-  return <div className={Style.Body}>{ElementsMovie}</div>
+  let ElementsMovie = props.Movies.map((el) => (
+    <MovieCard key={el.id} el={el} isLoading={props.isLoading} Genres={props.Genres} />
+  ))
+  return (
+    <div className={Style.Body}>
+      <Filter />
+      <div className={Style.listCards}>{ElementsMovie}</div>
+      <PaginationJS />
+    </div>
+  )
 }
 export default Body

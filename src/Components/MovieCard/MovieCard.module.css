@@ -1,10 +1,10 @@
 .MovieCard{
-    border: 2px solid black;
     width: 454px;
     height: 281px;
     margin-bottom: 32px;
     display: flex;
     flex-direction: row;
+    box-shadow: 0.4em 0.4em 5px rgba(122,122,122,0.5);
 }
 
 .MovieCard__picture{
@@ -14,8 +14,11 @@
     object-fit: cover;
 }
 
+.MovieCard__picture_hidden{
+    display: none;
+}
+
 .MovieCard__infoBlock{
-    border: 2px solid red;
     width: 239px;
     height: 272px;
     padding: 12px 9px 0 20px ;
@@ -25,7 +28,6 @@
 }
 
 .MovieCard__header{
-    border: 1px solid deeppink;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -33,7 +35,6 @@
 }
 
 .MovieCard__name{
-    border: 1px solid black;
 }
 
 .MovieCard__rank{
@@ -50,7 +51,6 @@
 }
 
 .MovieCard__data{
-    border: 1px solid darkblue;
     text-align: start;
 }
 
@@ -62,14 +62,17 @@
 }
 
 .MovieCard__genre{
-    border: 1px solid black;
+    display: inline;
+    background-color: #d3cdbc;
+    font-size: 10px;
+    border-radius: 5px;
     list-style-type: none;
+    padding: 2px;
     margin-right: 8px;
 }
 
 .MovieCard__description{
-    border: 1px solid seagreen;
-    margin: 0;
+    margin: 5px 0 0 0;
     font-size: 12px;
     /*line-height: 22px;*/
     text-align: start;
