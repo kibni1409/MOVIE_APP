@@ -30,7 +30,11 @@ const MovieCard = ({ el, isLoading, Genres }) => {
       </div>
     )
   } else {
-    img = 'https://image.tmdb.org/t/p/w185' + el.picture
+    if (el.picture !== null) {
+      img = 'https://image.tmdb.org/t/p/w185' + el.picture
+    } else {
+      img = 'error'
+    }
     let genres = el.genres.map((gen) => Genres.find((item) => item.id === gen))
     let ElementsGenres =
       genres[0] !== undefined
@@ -60,6 +64,9 @@ const MovieCard = ({ el, isLoading, Genres }) => {
           className={Style.MovieCard__picture_hidden}
           src={img}
           alt={el.picture}
+          onError={() => {
+            setLoad(true)
+          }}
           onLoad={() => {
             setLoad(true)
           }}

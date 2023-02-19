@@ -10,7 +10,6 @@
 .MovieCard__picture{
     width: 183px;
     height: 100%;
-    border: 2px solid blue;
     object-fit: cover;
 }
 

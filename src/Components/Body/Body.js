@@ -1,7 +1,8 @@
 import React from 'react'
+import { Alert } from 'antd'
 
 import MovieCard from '../MovieCard/MovieCard'
-import Filter from '../Filter/Filter'
+import Search from '../Search/Search'
 
 import Style from './Body.module.css'
 import PaginationJS from './../Pagination/Pagination'
@@ -12,7 +13,8 @@ const Body = (props) => {
   ))
   return (
     <div className={Style.Body}>
-      <Filter />
+      <Search setMovie={props.setMovie} />
+      {props.Movies.length !== 0 ? null : <Alert message="I'm sorry, but there are no such films" type="error" />}
       <div className={Style.listCards}>{ElementsMovie}</div>
       <PaginationJS />
     </div>

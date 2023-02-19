@@ -16,6 +16,6 @@ const BodyAPI = (props) => {
   useEffect(() => {
     API().then()
   }, [])
-  return <Body Movies={props.Movies} Genres={props.Genres} isLoading={props.isLoading} />
+  return <Body setMovie={props.setMovie} Movies={props.Movies} Genres={props.Genres} isLoading={props.isLoading} />
 }
 export default BodyAPI

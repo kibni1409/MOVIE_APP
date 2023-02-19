@@ -17,4 +17,7 @@ export const MovieAPI = {
   Genres() {
     return instance.get('genre/movie/list' + api_key).then((response) => response.data)
   },
+  Search(query) {
+    return instance.get('search/movie' + api_key + '&query=' + query).then((response) => response.data)
+  },
 }
