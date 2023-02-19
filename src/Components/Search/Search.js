@@ -27,8 +27,14 @@ const Search = (props) => {
     }
   }
   const onSearch = debounce(async function (e) {
-    let res = await MovieAPI.Search(e.target.value)
-    props.setMovie(res.results)
+    if (e.target.value === '') {
+      let res = await MovieAPI.Popular()
+      props.setMovie(res)
+    } else {
+      let res = await MovieAPI.Search(e.target.value)
+      props.setInput(e.target.value)
+      props.setMovie(res)
+    }
   }, 500)
   return (
     <div className={Style.Search}>

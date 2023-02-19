@@ -13,10 +13,10 @@ const Body = (props) => {
   ))
   return (
     <div className={Style.Body}>
-      <Search setMovie={props.setMovie} />
+      <Search setMovie={props.setMovie} setInput={props.setInput} />
       {props.Movies.length !== 0 ? null : <Alert message="I'm sorry, but there are no such films" type="error" />}
       <div className={Style.listCards}>{ElementsMovie}</div>
-      <PaginationJS />
+      <PaginationJS inputSearch={props.inputSearch} setMovie={props.setMovie} totalPages={props.totalPages} />
     </div>
   )
 }

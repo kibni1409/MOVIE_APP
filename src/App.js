@@ -21,15 +21,19 @@ export default class App extends React.Component {
       ],
       Genres: [{ id: 0, name: 'qwe' }],
       isLoading: false,
+      countPage: 0,
+      totalPages: 0,
+      inputSearch: '',
     }
     this.setMovie = this.setMovie.bind(this)
     this.setGenres = this.setGenres.bind(this)
     this.onLoading = this.onLoading.bind(this)
+    this.setInput = this.setInput.bind(this)
   }
 
   setMovie(listMovies) {
     this.setState(() => {
-      let res = listMovies.map((el) => {
+      let res = listMovies.results.map((el) => {
         return {
           id: el.id,
           picture: el.poster_path,
@@ -43,6 +47,7 @@ export default class App extends React.Component {
       })
       return {
         Movies: res,
+        totalPages: listMovies.total_pages,
       }
     })
   }
@@ -68,16 +73,26 @@ export default class App extends React.Component {
       }
     })
   }
+  setInput(message) {
+    this.setState(() => {
+      return {
+        inputSearch: message,
+      }
+    })
+  }
   render() {
     return (
       <div className="App">
         <BodyAPI
+          inputSearch={this.state.inputSearch}
+          setInput={this.setInput}
           Movies={this.state.Movies}
           Genres={this.state.Genres}
           setMovie={this.setMovie}
           setGenres={this.setGenres}
           isLoading={this.state.isLoading}
           onLoading={this.onLoading}
+          totalPages={this.state.totalPages}
         />
       </div>
     )

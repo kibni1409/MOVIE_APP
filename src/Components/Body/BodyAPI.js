@@ -9,13 +9,23 @@ const BodyAPI = (props) => {
     props.onLoading(true)
     const resMovie = await MovieAPI.Popular()
     const resGenres = await MovieAPI.Genres()
-    props.setMovie(resMovie.results)
+    props.setMovie(resMovie)
     props.setGenres(resGenres.genres)
     props.onLoading(false)
   }
   useEffect(() => {
     API().then()
   }, [])
-  return <Body setMovie={props.setMovie} Movies={props.Movies} Genres={props.Genres} isLoading={props.isLoading} />
+  return (
+    <Body
+      inputSearch={props.inputSearch}
+      setInput={props.setInput}
+      totalPages={props.totalPages}
+      setMovie={props.setMovie}
+      Movies={props.Movies}
+      Genres={props.Genres}
+      isLoading={props.isLoading}
+    />
+  )
 }
 export default BodyAPI
