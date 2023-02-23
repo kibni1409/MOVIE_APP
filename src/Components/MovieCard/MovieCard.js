@@ -1,12 +1,23 @@
 import React, { useState } from 'react'
-import { Space, Spin, Image } from 'antd'
+import { Space, Spin, Image, Rate } from 'antd'
 
 import Style from './MovieCard.module.css'
 
-const MovieCard = ({ el, isLoading, Genres }) => {
+const MovieCard = ({ el, isLoading, Genres, postRated }) => {
+  const [stars, setStars] = useState(el.stars)
   let [load, setLoad] = useState(false)
+  let color
+  if (0 <= Math.trunc(el.rank) && Math.trunc(el.rank) <= 3) color = Style.colorRed
+  if (3 < Math.trunc(el.rank) && Math.trunc(el.rank) <= 5) color = Style.colorOrange
+  if (5 < Math.trunc(el.rank) && Math.trunc(el.rank) <= 7) color = Style.colorYellow
+  if (7 < el.rank) color = Style.colorGreen
+  let rankColor = [Style.MovieCard__rank, color].join(' ')
   let ElementsCard
   let img = null
+  let onRated = (e) => {
+    setStars(e)
+    postRated(el.id, e)
+  }
   if (isLoading) {
     ElementsCard = (
       <div
@@ -31,7 +42,7 @@ const MovieCard = ({ el, isLoading, Genres }) => {
     )
   } else {
     if (el.picture !== null) {
-      img = 'https://image.tmdb.org/t/p/w185' + el.picture
+      img = 'https://image.tmdb.org/t/p/w500' + el.picture
     } else {
       img = 'error'
     }
@@ -74,11 +85,18 @@ const MovieCard = ({ el, isLoading, Genres }) => {
         <div className={Style.MovieCard__infoBlock}>
           <div className={Style.MovieCard__header}>
             <p className={Style.MovieCard__name}>{el.name}</p>
-            <div className={Style.MovieCard__rank}>{el.rank}</div>
+            <div className={rankColor}>{el.rank}</div>
           </div>
           <div className={Style.MovieCard__data}>{el.data}</div>
           <div className={Style.MovieCard__genreList}>{ElementsGenres}</div>
-          <p className={Style.MovieCard__description}>{el.description}</p>
+          <div className={Style.MovieCard__info}>
+            <p className={Style.MovieCard__description}>{el.description}</p>
+            {stars === 0 ? (
+              <Rate count={10} onChange={onRated} value={stars} className={Style.MovieCard__star} />
+            ) : (
+              <Rate count={10} disabled={true} value={stars} className={Style.MovieCard__star} />
+            )}
+          </div>
         </div>
       </div>
     )

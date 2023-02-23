@@ -22,4 +22,19 @@ export const MovieAPI = {
       .get('search/movie' + api_key + '&query=' + query + '&page=' + page)
       .then((response) => response.data)
   },
+  GuestAuth() {
+    return instance.get('authentication/guest_session/new' + api_key).then((response) => response.data)
+  },
+  Rated(movieID, ratedCount, guest_session_id) {
+    return instance
+      .post('movie/' + movieID + '/rating' + api_key + '&guest_session_id=' + guest_session_id, {
+        value: ratedCount,
+      })
+      .then((response) => response.data)
+  },
+  ListRated(guest_session_id) {
+    return instance
+      .get('guest_session/' + guest_session_id + '/rated/movies' + api_key)
+      .then((response) => response.data)
+  },
 }

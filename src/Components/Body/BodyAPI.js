@@ -6,25 +6,24 @@ import Body from './Body'
 
 const BodyAPI = (props) => {
   const API = async () => {
-    props.onLoading(true)
+    props.setLoading(true)
+    const resGuest = await MovieAPI.GuestAuth()
     const resMovie = await MovieAPI.Popular()
     const resGenres = await MovieAPI.Genres()
+    props.setGuestID(resGuest.guest_session_id)
     props.setMovie(resMovie)
     props.setGenres(resGenres.genres)
-    props.onLoading(false)
+    props.setLoading(false)
   }
   useEffect(() => {
     API().then()
   }, [])
   return (
     <Body
-      inputSearch={props.inputSearch}
+      setRatedMovie={props.setRatedMovie}
+      postRated={props.postRated}
       setInput={props.setInput}
-      totalPages={props.totalPages}
       setMovie={props.setMovie}
-      Movies={props.Movies}
-      Genres={props.Genres}
-      isLoading={props.isLoading}
     />
   )
 }

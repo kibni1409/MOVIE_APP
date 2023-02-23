@@ -19,14 +19,15 @@
 
 .MovieCard__infoBlock{
     width: 239px;
-    height: 272px;
-    padding: 12px 9px 0 20px ;
+    height: 262px;
+    padding: 12px 9px 10px 20px ;
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: space-between;
 }
 
 .MovieCard__header{
+    max-height: 57px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -37,10 +38,9 @@
 }
 
 .MovieCard__rank{
-    width: 30px;
+    min-width: 30px;
     height: 30px;
     border-radius: 30px;
-    border: 1px solid gold;
     font-size: 12px;
     text-align: center;
     display: flex;
@@ -49,11 +49,29 @@
     align-items: center;
 }
 
+.colorRed{
+    border: 2px solid #E90000;
+}
+
+.colorOrange{
+    border: 2px solid #E97E00;
+}
+
+.colorYellow{
+    border: 2px solid #E9D100;
+}
+
+.colorGreen{
+    border: 2px solid #66E900;
+}
+
 .MovieCard__data{
     text-align: start;
 }
 
 .MovieCard__genreList{
+    flex-wrap: wrap;
+    max-width: 219px;
     display: flex;
     flex-direction: row;
     padding: 0;
@@ -61,6 +79,8 @@
 }
 
 .MovieCard__genre{
+    margin-top: 2px;
+    float: left;
     display: inline;
     background-color: #d3cdbc;
     font-size: 10px;
@@ -70,25 +90,24 @@
     margin-right: 8px;
 }
 
+.MovieCard__info{
+    height: 145px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 .MovieCard__description{
     margin: 5px 0 0 0;
     font-size: 12px;
-    /*line-height: 22px;*/
+    line-height: 22px;
     text-align: start;
     max-height: 130px;
     overflow:hidden;
 }
 
-.MovieCard__starList{
-    border: 1px solid aqua;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
 .MovieCard__star{
-    border: 1px solid goldenrod;
-    list-style-type: none;
+  font-size: 14px;
+  margin-top: 5px;
+  margin-bottom: 2px;
 }
