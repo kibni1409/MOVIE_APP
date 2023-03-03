@@ -1,9 +1,10 @@
 import './App.css'
 import React from 'react'
 
-import BodyAPI from './Components/Body/BodyAPI'
-import { Provider } from './Context'
 import { MovieAPI } from './API/MovieAPI'
+import Body from './Components/Body/Body'
+
+export const { Provider, Consumer } = React.createContext()
 
 export default class App extends React.Component {
   constructor(props) {
@@ -30,6 +31,8 @@ export default class App extends React.Component {
       totalPages: 0,
       totalPagesRated: 0,
       inputSearch: '',
+      error: undefined,
+      tabs: 1,
     }
     this.setMovie = this.setMovie.bind(this)
     this.setGenres = this.setGenres.bind(this)
@@ -37,8 +40,12 @@ export default class App extends React.Component {
     this.setInput = this.setInput.bind(this)
     this.setGuestID = this.setGuestID.bind(this)
     this.postRated = this.postRated.bind(this)
+    this.API = this.API.bind(this)
+    this.onError = this.onError.bind(this)
+    this.onTabs = this.onTabs.bind(this)
     this.setMovieRated = this.setMovieRated.bind(this)
   }
+
   setGuestID(id) {
     this.setState(() => {
       return {
@@ -46,6 +53,7 @@ export default class App extends React.Component {
       }
     })
   }
+
   setMovie(listMovies) {
     this.setState(() => {
       let res = listMovies.results.map((el) => {
@@ -66,6 +74,7 @@ export default class App extends React.Component {
       }
     })
   }
+
   setMovieRated(listMovies) {
     this.setState(() => {
       let res = listMovies.results.map((el) => {
@@ -86,6 +95,7 @@ export default class App extends React.Component {
       }
     })
   }
+
   setGenres(listGenres) {
     this.setState(() => {
       let res = listGenres.map((el) => {
@@ -99,6 +109,7 @@ export default class App extends React.Component {
       }
     })
   }
+
   setLoading(bool) {
     this.setState(() => {
       return {
@@ -106,6 +117,7 @@ export default class App extends React.Component {
       }
     })
   }
+
   setInput(message) {
     this.setState(() => {
       return {
@@ -116,27 +128,58 @@ export default class App extends React.Component {
 
   async postRated(movieID, ratedCount) {
     let res = await MovieAPI.Rated(movieID, ratedCount, this.state.guestID)
-    if (res.success) {
+    if (res.status === 201) {
       let resRated = await MovieAPI.ListRated(this.state.guestID)
-      this.setMovieRated(resRated)
+      this.setMovieRated(resRated.data)
     }
   }
+  onError(e) {
+    this.setState(() => {
+      return {
+        error: e,
+      }
+    })
+  }
+  onTabs(number) {
+    this.setState(() => {
+      console.log('re', number)
+      return {
+        tabs: number,
+      }
+    })
+  }
+
+  async API() {
+    this.setLoading(true)
+    let resGuest, resMovie, resGenres
+    try {
+      resGuest = await MovieAPI.GuestAuth()
+      resMovie = await MovieAPI.Popular()
+      resGenres = await MovieAPI.Genres()
+      this.setGuestID(resGuest.data.guest_session_id)
+      this.setMovie(resMovie.data)
+      this.setGenres(resGenres.data.genres)
+    } catch (error) {
+      return error.message
+    }
+    this.setLoading(false)
+  }
+  componentDidMount() {
+    this.API().then((e) => this.onError(e))
+  }
+
   render() {
     return (
       <div className="App">
         <Provider value={this.state}>
-          <BodyAPI
+          <Body
+            tabs={this.state.tabs}
+            API={this.API}
             postRated={this.postRated}
-            setGuestID={this.setGuestID}
             setInput={this.setInput}
-            Movies={this.state.Movies}
-            Genres={this.state.Genres}
             setMovie={this.setMovie}
-            setGenres={this.setGenres}
-            isLoading={this.state.isLoading}
-            setLoading={this.setLoading}
+            onTabs={this.onTabs}
             setRatedMovie={this.setRatedMovie}
-            RatedMovies={this.state.RatedMovies}
           />
         </Provider>
       </div>

@@ -29,11 +29,11 @@ const Search = (props) => {
   const onSearch = debounce(async function (e) {
     if (e.target.value === '') {
       let res = await MovieAPI.Popular()
-      props.setMovie(res)
+      props.setMovie(res.data)
     } else {
       let res = await MovieAPI.Search(e.target.value)
       props.setInput(e.target.value)
-      props.setMovie(res)
+      props.setMovie(res.data)
     }
   }, 500)
   return (

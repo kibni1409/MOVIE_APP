@@ -17,10 +17,10 @@ const PaginationJS = (props) => {
     setCurrent(page)
     if (props.inputSearch !== '') {
       let res = await MovieAPI.Search(search, page)
-      props.setMovie(res)
+      props.setMovie(res.data)
     } else {
       let res = await MovieAPI.Popular(page)
-      props.setMovie(res)
+      props.setMovie(res.data)
     }
   }
   return (
